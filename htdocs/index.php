@@ -39,14 +39,27 @@
 				</div>
 			</div>
 	    <?php } else { ?>
+	    	<div id='list-png'>
+	    	<form>
+	    	<?php
+	    		$dir = 'img/png/';
+	    		$dh = opendir($dir);
+	    		while ($file = readdir($dh)) {
+	    			if (substr($file, -4) === '.png' && substr($file, 0) !== '.') {
+	    				echo '<input type="radio" name="imgpng" value="'. substr($file, 0, -4) .'"><img src="'. $dir.$file .'" width=50 height=50  alt="'. substr($file, 0, -4) .'" />';
+	    			}
+	    		}
+	    	?>
+	    	</form>
+	    	</div>
 	    	<div class='camera'>
     			<video id='video'>Video stream not available.</video>
-    			<button id='startbutton'>Prendre une photo</button>
+    			<button id='startbutton' >Prendre une photo</button>
   			</div>
   			<div class='result'>
 				<canvas id='canvas'>
   				</canvas>
-  				<button id='savebutton'>Sauvegarder</button>
+  				<button id='savebutton' >Sauvegarder</button>
   			</div>
 	    <?php } ?>
 	</main>

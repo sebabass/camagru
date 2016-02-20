@@ -6,9 +6,16 @@
       photo        = null,
       startbutton  = null,
       savebutton   = null,
+      radiobutton  = null,
       data         = null,
       width        = 420,
       height       = 0;
+
+/*************************************************************
+**************************************************************
+                          LOAD
+**************************************************************
+*************************************************************/
 
   function startup() {
     video = document.getElementById('video');
@@ -16,6 +23,8 @@
     photo = document.getElementById('photo');
     startbutton = document.getElementById('startbutton');
     savebutton = document.getElementById('savebutton');
+    startbutton.enabled = savebutton.enabled = true;
+    radiobutton = document.getElementsByName('imgpng');
 
     navigator.getMedia = ( navigator.getUserMedia ||
                            navigator.webkitGetUserMedia ||
@@ -56,12 +65,30 @@
       }
     }, false);
 
-    startbutton.addEventListener('click', function(ev){
-      takepicture();
-      ev.preventDefault();
-    }, false);
-    
+    for (var i = 0; i < radiobutton.length; i++) {
+      radiobutton[i].addEventListener('change', function(ev) {
+        changeImage();
+        ev.preventDefault();
+      });
+    }
+
     clearphoto();
+  }
+
+  /*************************************************************
+  **************************************************************
+                              PICTURE
+  **************************************************************
+  *************************************************************/
+
+  function changeImage() {
+    if (startbutton.enabled) {
+      startbutton.addEventListener('click', function(ev){
+        takepicture();
+        ev.preventDefault();
+      }, false);
+      startbutton.enabled = false;
+    }
   }
 
   function clearphoto() {
@@ -81,11 +108,20 @@
     } else {
       clearphoto();
     }
-    savebutton.addEventListener('click', function(ev){
-      ev.preventDefault();
-      ajaxSaveImage();
-    }, false);
+    if (savebutton.enabled) {
+      savebutton.addEventListener('click', function(ev){
+        ev.preventDefault();
+        ajaxSaveImage();
+      }, false);
+      savebutton.enabled = false;
+    }
   }
+
+  /*************************************************************
+  **************************************************************
+                            AJAX
+  **************************************************************
+  *************************************************************/
 
   function ajaxSaveImage() {
     if (!data) {
@@ -113,11 +149,9 @@
   function alert_ajax(xhr) {
     var docXML= xhr.responseXML;
     var items = docXML.getElementsByTagName("data");
-    //on fait juste une boucle sur chaque element "donnee" trouvé
     for (i=0;i<items.length;i++) {
       alert (items.item(i).firstChild.data);
     }
-    // refresh side picture.
   }
 
   window.addEventListener('load', startup, true);
