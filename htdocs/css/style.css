@@ -1,0 +1,213 @@
+body {
+	background-color: #fff;
+	width: 90%;
+	margin: auto;
+	color: #FC771D;
+}
+
+/***********************************
+		  header and menu
+***********************************/
+
+header {
+	background-color: #272822;
+	border-radius: 10px;
+	width: 100%;
+	height: 100px;
+	color: #FC771D;
+	margin-top: 10px;
+	padding-top: 20px;
+}
+
+.bandeau {
+	width: 100%;
+	height: 20px;
+	background-color: #C7C7CB;
+	border-top: 1px solid #FC771D;
+	border-bottom: 1px solid #FC771D;
+}
+
+.title {
+	font-size: 25px;
+	text-align: center;
+	margin-top: 25px;
+}
+
+/***********************************
+				main
+***********************************/
+
+main {
+	background-color: #272822;
+	border-radius: 10px;
+	width: 75%;
+	margin-top: 10px;
+	padding-bottom: 20px;
+	border: 3px double #FC771D;
+	display: inline-block;
+}
+
+/***********************************
+				cam
+***********************************/
+
+.camera {
+	width: 90%;
+	margin: auto;
+	text-align: center;
+	margin-top: 10px;
+}
+
+video {
+	width: 100%;
+}
+
+.result {
+	width: 90%;
+	text-align: center;
+	margin: auto;
+	padding-top: 10px;
+}
+
+canvas {
+	margin: auto;
+	background-color: #000;
+	border: 2px dashed #FC771D;
+	display: block;
+}
+
+button {
+	width: 25%;
+	margin-top: 5px;
+	border-radius: 5px;
+}
+
+/***********************************
+				form
+***********************************/
+
+#main-form {
+	padding-top: 20px;
+	width: 100%;
+}
+
+.block-form {
+    width: 100%;
+    text-align: center;
+   	margin-bottom: 50px;
+}
+
+.title-form {
+	width: 100%;
+	background-color: #C7C7CB;
+	border-top: 3px double #FC771D;
+	border-bottom: 3px double #FC771D;
+	font-size: 20px;
+	margin: 10px 0 20px 0;
+	color: #272822;
+}
+
+label {
+	font-size: 15px;
+}
+
+input {
+	border-radius: 5px;
+	margin-bottom: 3px;
+	font-size: 15px;
+}
+
+input:focus {
+	outline: none;
+	border-radius: 5px;
+	border-color: #FC771D;
+}
+
+.error {
+	color: red;
+}
+
+/***********************************
+			    side
+***********************************/
+
+nav {
+	width: 24%;
+	background-color: #272822;
+	margin-top: 10px;
+	border-radius: 10px;
+	border: 3px double #FC771D;
+	float: right;
+}
+
+#lastpicture, #mypicture {
+	margin-bottom: 10px;
+}
+
+.title-side {
+	width: 100%;
+	height: 20px;
+	background-color: #C7C7CB;
+	border-top: 3px double #FC771D;
+	border-bottom: 3px double #FC771D;
+	color: #272822;
+	text-align: center;
+}
+
+nav p {
+	text-align: center;
+	margin-top: 5px;
+}
+
+/***********************************
+			   footer
+***********************************/
+
+footer {
+	background-color: #272822;
+	border-radius: 10px;
+	width: 100%;
+	height: 100px;
+	color: #FC771D;
+	margin-top: 10px;
+}
+
+.bandeau-footer {
+	width: 90%;
+	height: 20px;
+	background-color: #C7C7CB;
+	border-top: 1px solid #FC771D;
+	border-bottom: 1px solid #FC771D;
+	position: absolute;
+	margin-top: 50px;
+	text-align: center;
+	color: #272822;
+}
+
+/***********************************
+				other
+***********************************/
+
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
+}
+
+.mr10 {
+	margin-right: 10px;
+}
+
+.ml10 {
+	margin-left: 10px; 
+}
+
+.mt10 {
+	margin-top: 10px;
+}
+
+.mb10 {
+	margin-bottom: 10px; 
+}
