@@ -8,6 +8,7 @@
       savebutton   = null,
       radiobutton  = null,
       data         = null,
+      png          = null,
       width        = 420,
       height       = 0;
 
@@ -67,7 +68,7 @@
 
     for (var i = 0; i < radiobutton.length; i++) {
       radiobutton[i].addEventListener('change', function(ev) {
-        changeImage();
+        changeImage(ev);
         ev.preventDefault();
       });
     }
@@ -81,7 +82,11 @@
   **************************************************************
   *************************************************************/
 
-  function changeImage() {
+  function changeImage(event) {
+    if (!event || !event.target || !event.target.value) {
+      return;
+    }
+    png = event.target.value;
     if (startbutton.enabled) {
       startbutton.addEventListener('click', function(ev){
         takepicture();
@@ -98,16 +103,21 @@
   }
 
   function takepicture() {
+    if (!png) {
+      return;
+    }
     var context = canvas.getContext('2d');
+    var myimage = new Image();
+    var srcpng = 'img/png/' + png + '.png';
     if (width && height) {
       canvas.width = width;
       canvas.height = height;
+      myimage.src = 'picture.php?mode=generate&srcimg=' + srcpng + '&w=100&h=100';
       context.drawImage(video, 0, 0, width, height);
-    
-      data = canvas.toDataURL('image/png');
     } else {
       clearphoto();
     }
+
     if (savebutton.enabled) {
       savebutton.addEventListener('click', function(ev){
         ev.preventDefault();
@@ -134,7 +144,6 @@
     } else if (window.ActiveXObject) {
         xhr = new ActiveXObject("Microsoft.XMLHTTP");
     }
-    //on définit l'appel de la fonction au retour serveur
     xhr.onreadystatechange = function() {
       if (xhr.readyState === 4) {
         alert_ajax(xhr);

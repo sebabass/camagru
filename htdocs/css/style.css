@@ -77,7 +77,7 @@ video {
 	width: 100%;
 }
 
-.result {
+#result {
 	width: 90%;
 	text-align: center;
 	margin: auto;
