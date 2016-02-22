@@ -59,7 +59,9 @@
   			<div class='result'>
 				<canvas id='canvas'>
   				</canvas>
-  				<button id='savebutton' >Sauvegarder</button>
+  				<button id='savebutton' >Sauvegarder</button><br>
+  				<span id='errorpicture' class='error'></span>
+  				<span id='successpicture' class='success'></span>
   			</div>
 	    <?php } ?>
 	</main>

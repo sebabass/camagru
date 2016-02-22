@@ -77,7 +77,7 @@ video {
 	width: 100%;
 }
 
-#result {
+.result {
 	width: 90%;
 	text-align: center;
 	margin: auto;
@@ -93,7 +93,7 @@ canvas {
 
 button {
 	width: 25%;
-	margin-top: 5px;
+	margin: 5px 0 5px 0;
 	border-radius: 5px;
 }
 
@@ -136,10 +136,6 @@ input:focus {
 	outline: none;
 	border-radius: 5px;
 	border-color: #FC771D;
-}
-
-.error {
-	color: red;
 }
 
 /***********************************
@@ -225,4 +221,12 @@ footer {
 
 .mb10 {
 	margin-bottom: 10px; 
+}
+
+.error {
+	color: red;
+}
+
+.success {
+	color: green;
 }
