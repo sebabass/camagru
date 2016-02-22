@@ -65,5 +65,5 @@
   			</div>
 	    <?php } ?>
 	</main>
-	<?php include_once('includes/side.php'); ?>
+	<?php if ($_SESSION['username']) { include_once('includes/side.php'); } ?>
 	<?php include_once('includes/footer.php'); ?>

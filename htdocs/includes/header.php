@@ -8,9 +8,6 @@
 		<meta charset="utf-8" />
 		<title>Camagru</title>
 		<link type='text/css' rel='stylesheet' href='css/style.css'>
-		<?php if ($_SESSION['username']) { ?>
-			<script type='text/javascript' src='js/cam.js'></script>
-		<?php } ?>
 	</head>
 	<body>
 		<header>
