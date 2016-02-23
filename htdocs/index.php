@@ -65,5 +65,10 @@
   			</div>
 	    <?php } ?>
 	</main>
-	<?php if ($_SESSION['username']) { include_once('includes/side.php'); } ?>
+	<?php if ($_SESSION['username']) {
+		include_once('includes/side.php');
+	?>
+		<script type='text/javascript' src='js/side.js'></script>
+		<script type='text/javascript' src='js/cam.js'></script>
+	<?php } ?>
 	<?php include_once('includes/footer.php'); ?>

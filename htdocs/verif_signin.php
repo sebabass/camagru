@@ -16,7 +16,7 @@
 
 			try {
 				$pdo = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
-				$pdo->setAttribute(PDO::ERRMODE_EXCEPTION);
+				$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			} catch (PDOException $e) {
 				$_SESSION['errors_signin'] = 'Connection failed: '. $e->getMessage();
 				header('Location: index.php');
@@ -26,7 +26,13 @@
 			$login = htmlspecialchars($_POST['login']);
 			$password = hash('whirlpool', $_POST['password']);
 
-			$query = $pdo->prepare("SELECT id_user, validate, password FROM users WHERE username like :username ");
+			try {
+				$query = $pdo->prepare("SELECT id_user, validate, password FROM users WHERE username like :username ");
+			} catch (PDOException $e) {
+				$_SESSION['errors_signin'] = $e->getMessage();
+				header('Location: index.php');
+				exit;
+			}
 			if($query->execute(array(':username' => $login))  && $row = $query->fetch())
   			{
   				$passwordBdd = $row['password'];

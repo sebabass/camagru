@@ -6,16 +6,6 @@
 		return ($query->fetchColumn());
 	}
 
-	function addUser ($pdo, $username, $email, $password, $cle) {
-		$query = $pdo->prepare('INSERT INTO users(username, email, password, cle) VALUES (:username, :email, :password, :cle)');
-		$query->execute(array(
-			'username' => $username,
-			'email' => $email,
-			'password' => $password,
-			'cle' => $cle
-			));
-	}
-
 	function sendEmail ($pdo, $email, $cle, $isRetry, $login, $isPassword) {
 		if ($isRetry || $isPassword) {
 			$queryLogin = $pdo->prepare('SELECT username FROM users WHERE email like :email');

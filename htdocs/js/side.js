@@ -25,10 +25,10 @@ function lastPictureComplete(xhr) {
 	var out = '';
 
 	for (i = 0; i < response.length; i++) {
-		out += '<li>' +
+		out += '<a href="view_picture.php?id='+ response[i].id +'"><li>' +
 		'<img src="'+ response[i].src +'" alt="'+ response[i].alt +'" width=70 height=70 >' +
 		'<span class="likes">'+ response[i].likes +'<span>' +
-		'</li>';
+		'</li></a>';
 	}
 	if (out) {
 		document.getElementById('side-mypicture').innerHTML = out;

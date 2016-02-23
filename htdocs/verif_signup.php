@@ -19,8 +19,8 @@
 					$errors[] = 'L\'email est invalide';
 				}
 
-				if (!preg_match('/^[a-zA-Z0-9]{4,32}/', $_POST['password'])) {
-					$errors[] = 'Le mot de passe doit contenir entre 4 et 32 caractères (a-z, A-Z, 0-9)';
+				if (!preg_match('/^[a-zA-Z0-9]{8,32}/', $_POST['password'])) {
+					$errors[] = 'Le mot de passe doit contenir entre 8 et 32 caractères (a-z, A-Z, 0-9)';
 				}
 			}
 
@@ -32,9 +32,10 @@
 
 			try {
 				$pdo = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
-				$pdo->setAttribute(PDO::ERRMODE_EXCEPTION);
+				$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			} catch (PDOException $e) {
-				$errors[] = 'Connection failed: '. $e->getMessage();
+				$errors[] = $e->getMessage();
+				$_SESSION['errors_signup'] = $errors;
 				header('Location: index.php');
 				exit;
 			}
@@ -58,7 +59,20 @@
 				exit;
 			}
 
-			addUser($pdo, $login, $email, $password, $cle);
+			try {
+				$query = $pdo->prepare('INSERT INTO users(username, email, password, cle) VALUES (:username, :email, :password, :cle)');
+				$query->execute(array(
+					'username' => $login,
+					'email' => $email,
+					'password' => $password,
+					'cle' => $cle
+				));
+			} catch (PDOException $e) {
+				$errors[] = $e->getMessage();
+				$_SESSION['errors_signup'] = $errors;
+				header('Location: index.php');
+				exit;
+			}
 			if (!sendEmail($pdo, $email, $cle, FALSE, $login, FALSE)) {
 				echo 'Impossible d\'envoyer le mail de validation';
 			} else {

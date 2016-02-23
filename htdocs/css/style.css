@@ -180,6 +180,32 @@ nav .likes {
 }
 
 /***********************************
+			view picture
+***********************************/
+
+#view-content {
+	width: 100%;
+	text-align: center;
+	display: inline-block;
+}
+
+#likes-block {
+	width: 10%;
+	float:left;
+	border-right: 1px solid #FFF;
+	margin: 10px 0 10px 10px;
+}
+
+.bandeau-like {
+	border-bottom: 1px solid #FFF;
+}
+
+#view-picture-comments {
+	width: 80%;
+	margin: 10px 10px 10px 0;
+}
+
+/***********************************
 			   footer
 ***********************************/
 
