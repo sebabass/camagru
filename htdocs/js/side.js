@@ -26,7 +26,7 @@ function lastPictureComplete(xhr) {
 
 	for (i = 0; i < response.length; i++) {
 		out += '<li>' +
-		'<img src="'+ response[i].src +'" alt="'+ response[i].alt +'" width=50 height=50 >' +
+		'<img src="'+ response[i].src +'" alt="'+ response[i].alt +'" width=70 height=70 >' +
 		'<span class="likes">'+ response[i].likes +'<span>' +
 		'</li>';
 	}

@@ -26,10 +26,6 @@ while ($data = $query->fetch()) {
 	$output .= '"alt": "'. substr($data['src'], 4, -4) .'",';
 	$output .= '"likes": "'. $likes .'",';
 	$output .= '"comments": "'. unserialize($data['comments']) .'"}';
-	/*echo '<li>';
-	echo '<img src="'. $data['src'] .'" alt="'. substr($data['src'], 4, -4) .'" width=50 height=50 >';
-	echo '<span class="like">likes : '. $likes .'</span>';
-	echo '</li>';*/
 }
 
 $output .= ']';

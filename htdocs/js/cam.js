@@ -186,6 +186,7 @@
         success.textContent = successxml.item(i).firstChild.data;
       }
       issave = 0;
+      getLastPicture();
     }
   }
 
