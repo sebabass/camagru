@@ -33,6 +33,7 @@
 				}
 				echo '</div></div>';
 				echo '<div id="view-picture-comments"><img src="'. $src .'" alt="'. substr($src, 4, -4) .'">';
+				echo '<span id="addLike"></span>';
 				echo '</div>';
 			} else {
 				echo 'Cette photo est introuvable';
@@ -43,4 +44,7 @@
 	?>
 	</div>
 </main>
+<script>
+	var linklike = document.getElementById('addLike');
+</script>
 <?php include_once('includes/footer.php');?>

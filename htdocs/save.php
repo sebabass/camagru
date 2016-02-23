@@ -18,15 +18,18 @@ if (isset($GLOBALS["HTTP_RAW_POST_DATA"])) {
 	$id = $_SESSION['id'];
 	$src = 'img/' . $_SESSION['username'] . '_' . hash('md5', microtime(TRUE)*100000) . '.png';
 	$likes = serialize([]);
-	$comments = serialize([]);
 
-	$query = $pdo->prepare('INSERT INTO images(by_user, src, likes, comments) VALUES (:by_user, :src, :likes, :comments)');
-	$query->execute(array(
-		'by_user' => $id,
-		'src' => $src,
-		'likes' => $likes,
-		'comments' => $comments
-		));
+	try {
+		$query = $pdo->prepare('INSERT INTO images(by_user, src, likes) VALUES (:by_user, :src, :likes)');
+		$query->execute(array(
+			'by_user' => $id,
+			'src' => $src,
+			'likes' => $likes
+			));
+	} catch (PDOException $e) {
+		echo '<error>'. $e->getMessage() .'</error>';
+		die();
+	}
 
 	$dataurl = $GLOBALS["HTTP_RAW_POST_DATA"];
 	$filterdata = substr($dataurl, strpos($dataurl, ",")+1);

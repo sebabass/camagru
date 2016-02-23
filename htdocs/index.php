@@ -43,12 +43,13 @@
 	    	<form>
 	    	<?php
 	    		$dir = 'img/png/';
-	    		$dh = opendir($dir);
-	    		while ($file = readdir($dh)) {
-	    			if (substr($file, -4) === '.png' && substr($file, 0) !== '.') {
-	    				echo '<input type="radio" name="imgpng" value="'. substr($file, 0, -4) .'"><img src="'. $dir.$file .'" width=50 height=50  alt="'. substr($file, 0, -4) .'" />';
-	    			}
-	    		}
+	    		if (($dh = opendir($dir))) {
+		    		while ($file = readdir($dh)) {
+		    			if (substr($file, -4) === '.png' && substr($file, 0) !== '.') {
+		    				echo '<input type="radio" name="imgpng" value="'. substr($file, 0, -4) .'"><img src="'. $dir.$file .'" width=50 height=50  alt="'. substr($file, 0, -4) .'" />';
+		    			}
+		    		}
+		    	}
 	    	?>
 	    	</form>
 	    	</div>
