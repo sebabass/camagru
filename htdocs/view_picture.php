@@ -13,7 +13,7 @@
 				die();
 			}
 
-			if (($query = $pdo->prepare('SELECT src, likes, date FROM images WHERE id_image like :id_image'))) {
+			if (($query = $pdo->prepare('SELECT by_user, src, likes, date FROM images WHERE id_image like :id_image'))) {
 				$query->execute(array(':id_image' => $id_image));
 				$result = $query->fetch();
 
@@ -33,7 +33,8 @@
 				}
 				echo '</div></div>';
 				echo '<div id="view-picture-comments"><img src="'. $src .'" alt="'. substr($src, 4, -4) .'">';
-				echo '<span id="addLike"></span>';
+				$scrlike = (in_array($_SESSION['id'], $likes)) ? 'img/site/like1.png' : 'img/site/like0.png';
+				echo '<span id="addlike"><img id="imglike" src="'. $scrlike .'" alt="like" ></span>';
 				echo '</div>';
 			} else {
 				echo 'Cette photo est introuvable';
@@ -44,7 +45,4 @@
 	?>
 	</div>
 </main>
-<script>
-	var linklike = document.getElementById('addLike');
-</script>
 <?php include_once('includes/footer.php');?>

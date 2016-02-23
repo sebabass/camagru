@@ -203,6 +203,16 @@ nav .likes {
 #view-picture-comments {
 	width: 80%;
 	margin: 10px 10px 10px 0;
+	display: inline-block;
+}
+
+#addlike {
+	width: 80%;
+}
+
+#imglike {
+	width: 25px;
+	height: 25px;
 }
 
 /***********************************
