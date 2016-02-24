@@ -20,17 +20,16 @@
 		}
 
 		try {
-			$query = $pdo->prepare('INSERT INTO comments(comment, username, id_image, date_comment) VALUES (:comment, :username, :id_image, :date_comment)');
+			$query = $pdo->prepare('INSERT INTO comments(comment, username, id_image) VALUES (:comment, :username, :id_image)');
 			$query->execute(array(
 				'comment' => $comment,
 				'username' => $_SESSION['username'],
-				'id_image' => $idimage,
-				'date_comment' => new DateTime()
+				'id_image' => $idimage
 			));
 		} catch (PDOException $e) {
 			echo '<error>'. $e->getMessage() .'</error>';
 			die();
 		}
-		echo '<success></success>';
+		echo '<success>'. $_SESSION['username'] .'</success>';
 	}
 ?>

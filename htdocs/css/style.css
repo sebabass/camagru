@@ -230,6 +230,7 @@ textarea {
 	list-style: none;
 	border-bottom: 1px solid #FC771D;
 	clear: both;
+	padding: 10px 0 10px 0;
 }
 
 li .username {
@@ -238,6 +239,36 @@ li .username {
 
 li .comment {
 	color: #FFF;
+}
+
+/***********************************
+			   gallery
+***********************************/
+
+#gallery-block {
+	width: 100%;
+	text-align: center;
+	display: inline-block;
+}
+
+.list-photo li {
+	list-style: none;
+	display: inline-block;
+	margin: 20px;
+}
+
+.list-photo li .likes {
+	display: block;
+	text-align: center;
+}
+
+.link {
+	margin: 5px;
+	color: #FFF;
+}
+
+.current {
+	color: #FC771D;
 }
 
 /***********************************

@@ -22,28 +22,33 @@
 				die();
 			}
 				if (!$result['src'] || !$result['by_user'] || !$result['likes']) {
-					echo 'Cette photo est introuvable';
+					echo '<span class="error">Cette photo est introuvable</span>';
 				} else {
 					$src = $result['src'];
 					$likes = unserialize($result['likes']);
-					echo '<div id="view-picture"><img src="'. $src .'" alt="'. substr($src, 4, -4) .'"><br /><br />';
+
+					echo '<div id="view-picture"><img src="'. $src .'" alt="'. substr($src, 4, -4) .'"></div><br />';
+					if ($result['by_user'] == $_SESSION['id']) {
+						echo '<span>par '. $_SESSION['username'] .'</span> (<a href="delete.php?id='. $id_image .'">supprimer la photo</a>)<br />';
+					}
 					$scrlike = (in_array($_SESSION['id'], $likes)) ? 'img/site/like1.png' : 'img/site/like0.png';
 		?>			
 					<span id="addlike"><img onClick="changelike('<?php echo $id_image ?>','<?php echo substr($scrlike, -5, -4)  ?>')" id="imglike" src=<?php echo '"'. $scrlike .'"'?> alt="like" ><span id="likenb"><?php echo count($likes) ?></span></span><br /><br />
+					<span id='error-view' class="error"></span><br />
 					<textarea id='area-comment' maxlength='512' cols='5' ></textarea><br />
 					<button type="button" onclick="addComment('<?php echo $id_image ?>')">Ajouter un commentaire</button><br />
 					<div id="comments-block">
 						<ul id="comments-ul">
 							<?php
 							try {
-								$query = $pdo->prepare('SELECT comment, username, date_comment FROM comments WHERE id_image like :id_image');
+								$query = $pdo->prepare('SELECT comment, username FROM comments WHERE id_image like :id_image');
 								$query->execute(array(':id_image' => $id_image));
 							} catch (PDOException $e){
 								echo '<span class="error">'. $e->getMessage() .'</span>';
 								die();
 							}
 							while (($result = $query->fetch())) {
-								echo '<li><div class="username">'. $result['username'] .':</div><div class="comment">'. $result['comment'] .'</div></li>';
+								echo '<li><span class="username">'. $result['username'] .':</span><span class="comment">'. $result['comment'] .'</span></li>';
 							}
 							?>				
 						</ul>
@@ -53,7 +58,7 @@
 				}
 
 		} else {
-			echo 'Cette photo est introuvable';
+			echo '<span class="error">Cette photo est introuvable</span>';
 		}
 				?>
 	</div>
@@ -64,8 +69,9 @@
 	var countlike = document.getElementById('likenb');
 	var textarea = document.getElementById('area-comment');
 	var comments = document.getElementById('comments-ul');
+	var errorview = document.getElementById('error-view');
 	var	tmplike = 0;
-	var isadd = 0
+	var isadd = 0;
 
 	function getxhr () {
 		var xmlhr = null;
@@ -79,6 +85,7 @@
 	}
 
 	function changelike (idimage, p_islike) {
+		clear();
 		var xhr = getxhr();
 		tmplike = (isadd) ? !tmplike : !!parseInt(p_islike);
 		isadd = 1;
@@ -106,7 +113,8 @@
 	    var count = 0;
 
 	    if (errorxml.length) {
-	    	console.log(errorxml);
+	    	errorview.textContent = errorxml.item(0).firstChild.data;
+	    	return;
 	    }
 	    if (successxml.length) {
 	    	addlike.src = (!tmplike) ? 'img/site/like1.png' : 'img/site/like0.png';
@@ -115,7 +123,8 @@
 	}
 
 	function addComment(idimage) {
-		if (textarea.value.length <= 0 || textarea.value.length >= 512) {
+		clear();
+		if (textarea.value.length <= 0 || textarea.value.length > 512) {
 			return;
 		}
 		var message = textarea.value;
@@ -123,7 +132,7 @@
 
 		xhr.onreadystatechange = function() {
       		if (xhr.readyState == 4 && xhr.status == 200) {
-        		addCommentComplete(xhr);
+        		addCommentComplete(xhr, message);
       		}
     	};
     	xhr.open('POST', 'http://localhost:8080/camagru/comment.php');
@@ -131,8 +140,22 @@
     	xhr.send('img='+ idimage + '&comment=' + message);
 	}
 
-	function addCommentComplete() {
-		console.log('good');
+	function addCommentComplete(xhr, message) {
+		var docXML= xhr.responseXML;
+		var errorxml = docXML.getElementsByTagName('error');
+	    var successxml = docXML.getElementsByTagName('success');
+
+		if (errorxml.length) {
+	    	errorview.textContent = errorxml.item(0).firstChild.data;
+	    	return;
+	    }
+	    if (successxml.length) {
+	    	comments.innerHTML += '<li><span class="username">'+ successxml.item(0).firstChild.data +':</span><span class="comment">'+ message +'</span></li>';
+	    }
+	}
+
+	function clear() {
+		errorview.textContent = '';
 	}
 
 </script>

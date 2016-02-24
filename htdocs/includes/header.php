@@ -14,11 +14,11 @@
 			<div id='menu'>
 				<div class='bandeau'>
 					<?php
+						echo "<span class='left ml10'><span class='right mr10'><a href='index.php'>Accueil</a></span></span>";
 						if ($_SESSION['username']) {
-							echo "<span class='left ml10'><span class='right mr10'><a href='index.php'>Montage</a></span></span>";
+							echo "<span class='right mr10'><a href='gallery.php?page=1'>galerie</a></span>";
 							echo "<span class='right mr10'><a href='signout.php'>se deconnecter</a></span>";
 						} else {
-							echo "<span class='left ml10'><span class='right mr10'><a href='index.php'>Accueil</a></span></span>";
 							echo "<span class='right mr10'><a href='index.php'>connexion</a></span>";
 						}
 					?>

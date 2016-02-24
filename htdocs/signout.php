@@ -2,7 +2,7 @@
 <main>
 	<?php
 	if ($_SESSION['username']) {
-		unset($_SESSION['username']);
+		session_unset();
 	}
 	header('Location: index.php');
 	exit;

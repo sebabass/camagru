@@ -83,9 +83,21 @@
 
   /*************************************************************
   **************************************************************
-                              PICTURE
+                        PICTURE AND AJAX
   **************************************************************
   *************************************************************/
+
+  function getXhr() {
+    var xhr=null;
+
+    if (window.XMLHttpRequest) { 
+        xhr = new XMLHttpRequest();
+    } else if (window.ActiveXObject) {
+        xhr = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+
+    return (xhr);
+  }
 
   function changeImage(event) {
     if (!event || !event.target || !event.target.value) {
@@ -109,20 +121,35 @@
 
   function takepicture() {
     clearText();
+    var xhr = getXhr();
+    if (!xhr) {
+      error.textContent = 'Erreur xhr';
+      return 
+    }
+
     if (!png) {
       return;
     }
     var context = canvas.getContext('2d');
-    var myimage = new Image();
     var srcpng = 'img/png/' + png + '.png';
 
     issave = 1;
     if (width && height) {
       canvas.width = width;
       canvas.height = height;
-      //myimage.src = 'picture.php?mode=generate&image=' + video.src + '&srcimg=' + srcpng + '&w=100&h=100';
+
       context.drawImage(video, 0, 0, width, height);
       data = canvas.toDataURL("image/png");
+
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+          ajaxPictureComplete(xhr);
+        } 
+      };
+ 
+      xhr.open("POST", "http://localhost:8080/camagru/generate_canvas.php");
+      xhr.setRequestHeader('Content-Type', 'application/upload');
+      xhr.send(data);
     } else {
       clearphoto();
     }
@@ -136,14 +163,14 @@
     }
   }
 
-  /*************************************************************
-  **************************************************************
-                            AJAX
-  **************************************************************
-  *************************************************************/
-
   function ajaxSaveImage() {
     clearText();
+    var xhr = getXhr();
+
+    if (!xhr) {
+      error.textContent = 'Erreur xhr';
+      return 
+    }
     if (!issave) {
       error.textContent = 'Image déjà sauvegarder';
       return;
@@ -151,13 +178,6 @@
     if (!data) {
       error.textContent = 'Impossible de sauvegarder la photo';
       return;
-    }
-    var xhr=null;
-
-    if (window.XMLHttpRequest) { 
-        xhr = new XMLHttpRequest();
-    } else if (window.ActiveXObject) {
-        xhr = new ActiveXObject("Microsoft.XMLHTTP");
     }
     xhr.onreadystatechange = function() {
       if (xhr.readyState == 4 && xhr.status == 200) {
@@ -168,6 +188,10 @@
     xhr.open("POST", "http://localhost:8080/camagru/save.php");
     xhr.setRequestHeader('Content-Type', 'application/upload');
     xhr.send(data);
+  }
+
+  function ajaxPictureComplete(xhr) {
+
   }
 
   function ajaxSaveComplete(xhr) {
