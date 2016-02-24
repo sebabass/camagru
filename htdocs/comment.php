@@ -1,0 +1,36 @@
+<?php
+
+	require_once('config/database.php');
+	session_start();
+
+	header('Content-Type: text/xml'); 
+	echo "<?xml version=\"1.0\"?>\n";
+
+	if ($_POST['img'] && $_POST['comment']) {
+
+		$idimage = $_POST['img'];
+		$comment = htmlspecialchars($_POST['comment']);
+
+		try {
+			$pdo = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+			$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		} catch (PDOException $e) {
+			echo '<error>'. $e->getMessage() .'</error>';
+			die();
+		}
+
+		try {
+			$query = $pdo->prepare('INSERT INTO comments(comment, username, id_image, date_comment) VALUES (:comment, :username, :id_image, :date_comment)');
+			$query->execute(array(
+				'comment' => $comment,
+				'username' => $_SESSION['username'],
+				'id_image' => $idimage,
+				'date_comment' => new DateTime()
+			));
+		} catch (PDOException $e) {
+			echo '<error>'. $e->getMessage() .'</error>';
+			die();
+		}
+		echo '<success></success>';
+	}
+?>

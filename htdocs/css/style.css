@@ -189,30 +189,55 @@ nav .likes {
 	display: inline-block;
 }
 
-#likes-block {
-	width: 10%;
-	float:left;
-	border-right: 1px solid #FFF;
-	margin: 10px 0 10px 10px;
-}
-
-.bandeau-like {
-	border-bottom: 1px solid #FFF;
-}
-
-#view-picture-comments {
+#view-picture {
 	width: 80%;
 	margin: 10px 10px 10px 0;
 	display: inline-block;
 }
 
 #addlike {
-	width: 80%;
+	display: inline-block;
+	margin-top: 10px;
 }
 
 #imglike {
 	width: 25px;
 	height: 25px;
+	cursor: pointer;
+}
+
+#likenb {
+	font-size: 20px;
+	margin-left: 5px;
+}
+
+textarea {
+	width: 50%;
+	height: 80px;
+	font-size: 20px;
+	resize: none;
+}
+
+#comments-block {
+	width: 50%;
+	border-top: 1px solid #FC771D;
+	margin-top: 10px;
+	display: inline-block;
+}
+
+#comments-block li {
+	width: 100%;
+	list-style: none;
+	border-bottom: 1px solid #FC771D;
+	clear: both;
+}
+
+li .username {
+	float: left;
+}
+
+li .comment {
+	color: #FFF;
 }
 
 /***********************************
